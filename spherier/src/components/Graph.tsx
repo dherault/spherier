@@ -3,7 +3,7 @@
 import useBeings from '~/src/hooks/useBeings'
 
 function Graph() {
-  const { beings} = useBeings()
+  const { beings } = useBeings()
 
   return (
     <pre>

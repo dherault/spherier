@@ -7,7 +7,7 @@ type BeingsContextType = {
   beings: Being[]
   createBeing: () => void
   updateBeing: (being: Being) => void
-  deleteBeing: (index: number) => void
+  deleteBeing: (id: number) => void
 }
 
 export default createContext<BeingsContextType>({
