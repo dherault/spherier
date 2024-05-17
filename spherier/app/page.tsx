@@ -1,6 +1,7 @@
 import { google } from 'googleapis'
 
 import AddBeingButton from '~/src/components/AddBeingButton'
+import type { Being } from '~/src/types'
 
 async function getData() {
   try {
@@ -16,7 +17,14 @@ async function getData() {
       range,
     })
 
-    return response.data.values
+    return response.data.values?.map(([name, x, y, color, info], index) => ({
+      index,
+      name,
+      x: Number(x),
+      y: Number(y),
+      color,
+      info,
+    })) ?? []
   }
   catch (error) {
     console.error(error)
@@ -26,7 +34,7 @@ async function getData() {
 }
 
 export default async function Home() {
-  const data = await getData()
+  const data = await getData() as Being[]
 
   return (
     <>
@@ -37,7 +45,7 @@ export default async function Home() {
           right: 16,
         }}
       >
-        <AddBeingButton />
+        <AddBeingButton nextIndex={data.length} />
       </div>
       <pre>
         {JSON.stringify(data, null, 2)}
