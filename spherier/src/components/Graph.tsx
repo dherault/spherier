@@ -1,8 +1,15 @@
 'use client'
 
 import { useCallback, useMemo } from 'react'
-import ReactFlow, { type Connection, type Edge, addEdge, useEdgesState, useNodesState } from 'reactflow'
+import ReactFlow, {
+  type Connection,
+  type Edge,
+  addEdge,
+  useEdgesState,
+  useNodesState,
+} from 'reactflow'
 
+import 'reactflow/dist/style.css'
 import useBeings from '~/src/hooks/useBeings'
 
 function Graph() {
@@ -15,7 +22,7 @@ function Graph() {
   })), [beings])
   const initialEdges: Edge[] = []
 
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [nodes,, onNodesChange] = useNodesState(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
 
   const onConnect = useCallback((params: Edge | Connection) => {
