@@ -1,4 +1,4 @@
-import { google } from 'googleapis';
+import { google } from 'googleapis'
 
 async function getData() {
   const auth = await google.auth.getClient({
@@ -7,7 +7,7 @@ async function getData() {
 
   const sheets = google.sheets({ version: 'v4', auth })
 
-  const range= 'Sheet1!A2:E100'
+  const range = 'Sheet1!A2:E100'
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId: process.env.SHEET_ID,
     range,
@@ -24,10 +24,8 @@ export default async function Home() {
   const data = await getData()
 
   return (
-    <>
-      <pre>
-        {JSON.stringify(data, null, 2)}
-      </pre>
-    </>
-  );
+    <pre>
+      {JSON.stringify(data, null, 2)}
+    </pre>
+  )
 }
