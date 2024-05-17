@@ -1,3 +1,4 @@
+import { Button } from '@mui/material'
 import { google } from 'googleapis'
 
 async function getData() {
@@ -24,8 +25,21 @@ export default async function Home() {
   const data = await getData()
 
   return (
-    <pre>
-      {JSON.stringify(data, null, 2)}
-    </pre>
+    <>
+      <div
+        style={{
+          position: 'absolute',
+          top: 16,
+          right: 16,
+        }}
+      >
+        <Button variant="contained">
+          Add being
+        </Button>
+      </div>
+      <pre>
+        {JSON.stringify(data, null, 2)}
+      </pre>
+    </>
   )
 }
