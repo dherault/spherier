@@ -1,7 +1,9 @@
 import { google } from 'googleapis'
 
+import BeingsProvider from '~/src/components/BeingsProvider'
 import AddBeingButton from '~/src/components/AddBeingButton'
 import type { Being } from '~/src/types'
+import Graph from '~/src/components/Graph'
 
 async function getData() {
   try {
@@ -18,7 +20,7 @@ async function getData() {
     })
 
     return response.data.values?.map(([name, x, y, color, info], index) => ({
-      index,
+      id: index + 2,
       name,
       x: Number(x),
       y: Number(y),
@@ -37,7 +39,7 @@ export default async function Home() {
   const data = await getData() as Being[]
 
   return (
-    <>
+    <BeingsProvider initialData={data}>
       <div
         style={{
           position: 'absolute',
@@ -45,11 +47,9 @@ export default async function Home() {
           right: 16,
         }}
       >
-        <AddBeingButton nextIndex={data.length} />
+        <AddBeingButton />
       </div>
-      <pre>
-        {JSON.stringify(data, null, 2)}
-      </pre>
-    </>
+      <Graph />
+    </BeingsProvider>
   )
 }
