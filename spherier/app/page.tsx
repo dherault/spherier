@@ -1,23 +1,27 @@
-import { Button } from '@mui/material'
 import { google } from 'googleapis'
 
+import AddBeingButton from '~/src/components/AddBeingButton'
+
 async function getData() {
-  const auth = await google.auth.getClient({
-    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-  })
+  try {
+    const auth = await google.auth.getClient({
+      scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+    })
 
-  const sheets = google.sheets({ version: 'v4', auth })
+    const sheets = google.sheets({ version: 'v4', auth })
 
-  const range = 'Sheet1!A2:E100'
-  const response = await sheets.spreadsheets.values.get({
-    spreadsheetId: process.env.SHEET_ID,
-    range,
-  })
+    const range = 'Sheet1!A2:E100'
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: process.env.SHEET_ID,
+      range,
+    })
 
-  return {
-    props: {
-      data: response.data.values,
-    },
+    return response.data.values
+  }
+  catch (error) {
+    console.error(error)
+
+    return []
   }
 }
 
@@ -33,9 +37,7 @@ export default async function Home() {
           right: 16,
         }}
       >
-        <Button variant="contained">
-          Add being
-        </Button>
+        <AddBeingButton />
       </div>
       <pre>
         {JSON.stringify(data, null, 2)}
