@@ -13,6 +13,7 @@ import 'reactflow/dist/style.css'
 import useBeings from '~/src/hooks/useBeings'
 
 function Graph() {
+
   const { beings } = useBeings()
   const initialNodes = useMemo(() => beings.map(being => ({
     id: being.id.toString(),
